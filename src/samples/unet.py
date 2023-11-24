@@ -49,6 +49,7 @@ test_labels = (test_images > 0.5).astype(np.int32)
 
 # Create U-Net model
 model = create_unet(input_shape=(28, 28, 1))
+model.summary()
 
 # Compile and train the model for 5 epochs
 model.compile(optimizer='adam', loss='binary_crossentropy')
