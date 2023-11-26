@@ -5,8 +5,9 @@ import requests
 from io import BytesIO
 
 # model, _, preprocess = open_clip.create_model_and_transforms('ViT-H-14', pretrained='laion2b_s32B_b79k')
+# tokenizer = open_clip.get_tokenizer('ViT-H-14')
 model, _, preprocess = open_clip.create_model_and_transforms('ViT-B-32', pretrained='laion2b_s34b_b79k')
-tokenizer = open_clip.get_tokenizer('ViT-H-14')
+tokenizer = open_clip.get_tokenizer('ViT-B-32')
 
 url = "https://d2zp5xs5cp8zlg.cloudfront.net/image-78806-800.jpg"
 labels = ["a diagram", "a kitten",  "a dog", "a cat"]
