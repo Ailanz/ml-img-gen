@@ -7,7 +7,8 @@ import requests
 from io import BytesIO
 
 def load_imgs(as_np = True):
-    filelist = glob.glob('../../data/pokemon_jpg/*.jpg')
+    filelist = glob.glob('../../data/pokemon_aug/*.jpeg')
+    # filelist = glob.glob('../../data/pokemon_jpg/*.jpg')
     x = []
     if as_np:
         x = np.array([np.array(Image.open(fname)) for fname in filelist])
