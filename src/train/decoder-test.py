@@ -8,10 +8,10 @@ import numpy as np
 
 model = keras.models.load_model('decoder.keras')
 
-imgs = img_process.load_imgs(as_np=False)
+imgs = img_process.load_imgs()
 img_features, text_features = img_process.img_embedding(imgs_arr=imgs)
 
-imgs = img_process.load_imgs(as_np=True)
+imgs = img_process.load_imgs_as_np()
 imgs = imgs / 255.
 
 X_train, X_test, y_train, y_test = train_test_split(img_features, imgs, test_size=0.25, random_state=42)

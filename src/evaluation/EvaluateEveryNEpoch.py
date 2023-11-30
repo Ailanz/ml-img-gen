@@ -1,5 +1,6 @@
 import random
 import matplotlib.pyplot as plt
+import numpy as np
 from keras.callbacks import Callback
 
 
@@ -22,7 +23,9 @@ class EvaluateEveryNEpochs(Callback):
 
                 for i in range(samples):
                     for j in range(samples):
-                        axarr[i, j].imshow(y_pred[random.randint(1, y_pred.shape[0]-1)], interpolation='nearest')
+                        img = y_pred[random.randint(1, y_pred.shape[0]-1)]
+                        img = np.clip(img, 0., 1.)
+                        axarr[i, j].imshow(img, interpolation='nearest')
                         axarr[i, j].axis('off')
 
                 plt.show()

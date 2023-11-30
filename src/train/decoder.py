@@ -13,11 +13,11 @@ decoder = clip_img_decoder.ClipImgDecoder()
 model = decoder.build_model()
 
 
-imgs = img_process.load_imgs(as_np=False)
+imgs = img_process.load_imgs()
 img_features, text_features = img_process.img_embedding(imgs_arr=imgs)
 
 # model = decoder.build_unet(input_shape=(256, 256, 3))
-imgs = img_process.load_imgs(as_np=True)
+imgs = img_process.load_imgs_as_np()
 imgs = imgs / 255.
 
 # decoder

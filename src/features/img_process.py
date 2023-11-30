@@ -6,16 +6,22 @@ import open_clip
 import requests
 from io import BytesIO
 
-def load_imgs(as_np = True):
-    filelist = glob.glob('../../data/pokemon_aug/*.jpeg')
+img_path = '../../data/pokemon_aug/*.jpeg'
+
+
+def load_imgs(path=img_path):
+    filelist = glob.glob(path)
     # filelist = glob.glob('../../data/pokemon_jpg/*.jpg')
-    x = []
-    if as_np:
-        x = np.array([np.array(Image.open(fname)) for fname in filelist])
-        print('Image Shape: ', x.shape)
-    else:
-        x = [Image.open(fname) for fname in filelist]
-        print('Image Shape: ', len(x))
+
+    x = [Image.open(fname) for fname in filelist]
+    print('Image Shape: ', len(x))
+    return x
+
+
+def load_imgs_as_np(path = img_path):
+    filelist = glob.glob(path)
+    x = np.array([np.array(Image.open(fname)) for fname in filelist])
+    print('Image Shape: ', x.shape)
     return x
 
 
