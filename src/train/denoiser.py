@@ -14,17 +14,20 @@ def add_noise(images, noise_factor=0.1):
     noisy_images = images + noise_factor * np.random.normal(loc=0., scale=1., size=images.shape)
     noisy_images = np.clip(noisy_images, 0., 1.)
     noise = noisy_images - images
-    # plot_img(noisy_images[0], images[0], noise[0])
+    # rand_sample = random.randint(0, images.shape[0] - 1)
+    # plot_img(noisy_images[rand_sample], images[rand_sample], noise[rand_sample])
     return noisy_images, noise
 
 def plot_img(noisy_img, img, noise):
-    f, axarr = plt.subplots(1, 3, figsize=(12, 12))
+    f, axarr = plt.subplots(1, 4, figsize=(12, 12))
     axarr[0].imshow(noisy_img, interpolation='nearest')
     axarr[1].imshow(img, interpolation='nearest')
     axarr[2].imshow(noise, interpolation='nearest')
+    axarr[3].imshow(noisy_img - noise, interpolation='nearest')
     axarr[0].axis('off')
     axarr[1].axis('off')
     axarr[2].axis('off')
+    axarr[3].axis('off')
     plt.show()
 
 
@@ -44,6 +47,7 @@ if __name__ == '__main__':
     for i in range(1000):
         for step in range(10):
             noise_factor = (step + 1) / 10  # Gradually increase noise factor
+            noise_factor = 0.1  # Gradually increase noise factor
             print(f"Training step {i+1}/1000", f"noise factor: {noise_factor}")
             noisy_images, noises = add_noise(imgs, noise_factor=noise_factor)
 
