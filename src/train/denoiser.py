@@ -11,11 +11,11 @@ import numpy as np
 
 
 def add_noise(images, noise_factor=0.1):
-    images_noisy = images + noise_factor * np.random.normal(loc=0., scale=1., size=images.shape)
-    images_noisy = np.clip(images_noisy, 0., 1.)
-    noise = images_noisy - images
-    # plot_img(images_noisy[0], images[0], noise[0])
-    return images_noisy, noise
+    noisy_images = images + noise_factor * np.random.normal(loc=0., scale=1., size=images.shape)
+    noisy_images = np.clip(noisy_images, 0., 1.)
+    noise = noisy_images - images
+    # plot_img(noisy_images[0], images[0], noise[0])
+    return noisy_images, noise
 
 def plot_img(noisy_img, img, noise):
     f, axarr = plt.subplots(1, 3, figsize=(12, 12))
@@ -42,11 +42,17 @@ if __name__ == '__main__':
     early_stopping = EarlyStopping(monitor='loss', patience=20, restore_best_weights=True)
 
     for i in range(1000):
-        print(f"Training step {i+1}/1000")
-        noise_factor = 0.2
-        noisy_images, noises = add_noise(imgs, noise_factor=noise_factor)
-        model.fit(noisy_images, noises, epochs=epoch_per_step, batch_size=32, verbose=1, callbacks=[early_stopping, evaluate_denoiser])
+        for step in range(10):
+            noise_factor = (step + 1) / 10  # Gradually increase noise factor
+            print(f"Training step {i+1}/1000", f"noise factor: {noise_factor}")
+            noisy_images, noises = add_noise(imgs, noise_factor=noise_factor)
 
+            # y = model.predict(np.expand_dims(noisy_images[0], axis=0))
+            # plot_img(noisy_images[0], imgs[0], noisy_images[0] - y[0])
+            noise_factor_batch = np.repeat(noise_factor, noisy_images.shape[0], axis=0)
+            model.fit([noisy_images, noise_factor_batch], noises, epochs=epoch_per_step, batch_size=32, verbose=1, callbacks=[early_stopping, evaluate_denoiser])
+
+    model.save('denoiser.h5')
     # time_steps = 5
     # for i in range(time_steps):
     #     print('Starting Time Step: ', i)
