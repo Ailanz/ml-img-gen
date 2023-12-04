@@ -20,7 +20,7 @@ class EvaluateDenoiser(Callback):
         if (epoch + 1) % self.evaluate_epochs == 0:
             try:
                 samples = 5
-                divisor = 2
+                divisor = 1
 
                 noisy_img = np.random.normal(0.5, size=(samples, *self.shape))
                 noisy_img = np.clip(noisy_img, 0., 1.)

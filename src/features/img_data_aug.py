@@ -32,7 +32,7 @@ for root, dirs, files in os.walk(original_data_dir):
         i = 0
         for batch in datagen.flow(x, batch_size=1, save_to_dir=augmented_data_dir, save_prefix='aug', save_format='jpeg'):
             i += 1
-            if i > 6:  # Generate a few augmented images per original image
+            if i > 100:  # Generate a few augmented images per original image
                 break
 
 # Visualize some augmented images

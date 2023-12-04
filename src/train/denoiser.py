@@ -12,8 +12,8 @@ import numpy as np
 
 def add_noise(images, noise_factor=random.random()):
     # noisy_images = images + noise_factor * np.random.normal(loc=0., scale=1., size=images.shape)
-    rand_scale = np.random.rand(images.shape[0])
-    noisy_images = images + np.random.rand(images.shape[0], 128, 128, 3) * np.random.normal(loc=0., scale=1., size=images.shape)
+    rand_scale = np.random.rand(images.shape[0], 128, 128, 3)
+    noisy_images = images + 3 * rand_scale * np.random.normal(loc=0., scale=1., size=images.shape)
     noisy_images = np.clip(noisy_images, 0., 1.)
     noise = noisy_images - images
     # rand_sample = random.randint(0, images.shape[0] - 1)
